@@ -2,7 +2,7 @@
 
 # hayaml
 
-`hayaml` converts between JS objects and HAYAML. [HAYAML]((https://github.com/blubitz/HAYAML-Spec)) (Human-Readable Serialization for Complex Web Content) is a human-readable, cross-language data serialization format for serializing complex web components.
+**hayaml** converts between JS objects and HAYAML. [HAYAML]((https://github.com/blubitz/HAYAML-Spec)) (Human-Readable Serialization for Complex Web Content) is a human-readable, cross-language data serialization format for serializing complex web components.
 
 ## Installation
 
