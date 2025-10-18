@@ -15,8 +15,9 @@
   },
   "scripts": {
     "test": "npm run build && node test/test.js && node test/test.mjs",
-    "build": "npm run movecjs && npm run build:esm",
+    "build": "npm run movecjs && npm run build:esm && npm run build:umd",
     "build:esm": "cjstoesm src/**/*.js dist/esm && npm run renamemjs",
+    "build:umd": "rollup --config",
     "movecjs": "node ./dev/copy.js './src/cjs/hayaml.js' './dist/cjs/hayaml.js'",
     "renamemjs": "node ./dev/move.js ./dist/esm/hayaml.js ./dist/esm/hayaml.mjs"
   },
@@ -32,6 +33,9 @@
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "cjstoesm": "^3.0.0"
+    "@rollup/plugin-commonjs": "^28.0.8",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "cjstoesm": "^3.0.0",
+    "rollup": "^4.52.5"
   }
 }
