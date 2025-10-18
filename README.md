@@ -28,8 +28,17 @@ import HAYAML from 'hayaml'
 
 ### UMD
 
+```html
+<script src="https://cdn.jsdelivr.net/gh/blubitz/hayaml/dist/umd/hayaml.min.js"></script>
+<!--
+<script>
+    const data = { /* your data */ }
+    const serialized = HAYAML.stringify(data)
+</script>
+-->
+```
 
-### JS object to HAYAML
+### JSON object to HAYAML
 
 ```js
 const data = {
@@ -67,7 +76,7 @@ content:
               alt: beach
 ```
 
-### HAYAML to JS object
+### HAYAML to JSON object
 
 ```js
 const hayaml = `type: image-gallery
@@ -124,6 +133,8 @@ npm run test
 ```
 
 ## License
+
+The code is available under the [MIT](LICENSE) license.
 
 ## Contributing
 
