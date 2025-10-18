@@ -37,5 +37,10 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "cjstoesm": "^3.0.0",
     "rollup": "^4.52.5"
-  }
+  },
+  "repository": {
+    "url": "https://github.com/blubitz/hayaml.git",
+    "type": "git"
+  },
+  "homepage": "https://blubitz.github.io/hayaml/"
 }

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYAML Linter & Converter</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=IBM+Plex+Sans:wght@400;500&family=Fira+Code&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        header h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-weight: 600;
+            color: #e53935;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        header nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        header nav a::after {
+            content: '';
+            display: block;
+            height: 2px;
+            background: #e53935;
+            transition: width 0.3s;
+            width: 0;
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+        }
+
+        header nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        main {
+            display: flex;
+            justify-content: stretch;
+            align-items: stretch;
+            flex: 1;
+            gap: 1rem;
+            padding: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 80vh;
+            overflow: hidden;
+            color: #333;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Input Textarea */
+        textarea {
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem;
+            resize: none;
+            flex: 1;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            color: #333;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #e53935;
+        }
+
+        /* Buttons Container */
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            width: 150px;
+            font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* Professional Red Buttons */
+        .buttons button {
+            background-color: #c53030;
+            /* professional muted red */
+            border: 1px solid #c53030;
+            border-radius: 6px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover State */
+        .buttons button:hover {
+            background-color: #9b2c2c;
+            /* darker red for hover */
+            border-color: #9b2c2c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Active / Pressed State */
+        .buttons button:active {
+            background-color: #822727;
+            /* deep red for active */
+            border-color: #822727;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) inset;
+        }
+
+        /* Output Panel */
+        .output {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 1rem;
+            width: 30%;
+            max-height: 80vh;
+            overflow-y: auto;
+            font-family: 'Fira Code', monospace;
+            color: #333;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            white-space: pre-wrap;
+            /* Wraps text while preserving line breaks */
+            word-wrap: break-word;
+            /* Breaks long words if needed */
+            overflow-wrap: break-word;
+            /* Modern equivalent for safety */
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+            backdrop-filter: blur(10px);
+        }
+
+        footer a {
+            color: #e53935;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+
+            .panel,
+            .output {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .panel,
+            .output {
+                width: 90%;
+            }
+
+            .buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>HAYAML Linter & Converter</h1>
+        <nav>
+            <a href="https://github.com/blubitz/HAYAML-Spec">HAYAML</a>
+            <a href="https://www.npmjs.com/package/hayaml">NPM Package</a>
+            <a href="https://github.com/blubitz/hayaml">GitHub</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="panel">
+            <textarea id="input" placeholder="Paste your code here..."></textarea>
+        </div>
+        <div class="buttons">
+            <button onclick="validateInput()">Validate</button>
+            <button onclick="formatInput()">Format</button>
+            <button onclick="convertToJSON()">To JSON</button>
+            <button onclick="convertToHAYAML()">To HAYAML</button>
+        </div>
+        <pre class="panel output" id="output">Output will appear here...</pre>
+    </main>
+
+    <footer>
+        &copy; 2025 blubitz <a href="mailto:contact@example.com">Contact</a> <a
+            href="https://github.com/blubitz/HAYAML-Spec">HAYAML Spec</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/gh/blubitz/hayaml/dist/umd/hayaml.min.js"></script>
+    <script>
+        const input = document.getElementById('input');
+        const output = document.getElementById('output');
+
+        function showOutput(message, isError = false) {
+            output.textContent = message;
+            output.style.color = isError ? '#d32f2f' : '#333';
+        }
+
+        function validateInput() {
+            const text = input.value.trim();
+            try {
+                if (text.startsWith('{') || text.startsWith('[')) {
+                    JSON.parse(text);
+                    showOutput('✅ Valid JSON');
+                } else if (text.includes('-')) {
+                    HAYAML.parse(text);
+                    showOutput('✅ Valid HAYAML');
+                } else {
+                    showOutput('⚠️ Not JSON or HAYAML format; try Format or Convert buttons.');
+                }
+            } catch (e) {
+                showOutput('❌ Invalid syntax: ' + e.message, true);
+            }
+        }
+
+        function formatInput() {
+            const text = input.value.trim();
+            try {
+                if (text.startsWith('{') || text.startsWith('[')) {
+                    const formatted = JSON.stringify(JSON.parse(text), null, 2);
+                    input.value = formatted;
+                    showOutput('✨ JSON formatted');
+                } else if (text.includes('-')) {
+                    const formatted = HAYAML.stringify(HAYAML.parse(text));
+                    input.value = formatted;
+                    showOutput('✨ HAYAML formatted');
+                } else {
+                    showOutput('⚠️ Not JSON or HAYAML format; cannot auto-format.', true);
+                }
+            } catch (e) {
+                showOutput('❌ Cannot format: ' + e.message, true);
+            }
+        }
+
+        function convertToHAYAML() {
+            const text = input.value.trim();
+
+            try {
+                const obj = JSON.parse(text);
+                const yaml = HAYAML.stringify(obj);
+                showOutput(yaml);
+            } catch (e) {
+                try {
+                    const obj = HAYAML.parse(text);
+                    showOutput(text);
+                    return;
+                } catch {
+                    showOutput('❌ Cannot convert to YAML: ' + e.message, true);
+                }
+            }
+        }
+
+        function convertToJSON() {
+            const text = input.value.trim();
+            try {
+                const obj = HAYAML.parse(text);
+                const formatted = JSON.stringify(obj, null, 2);
+                showOutput(formatted);
+            } catch (e) {
+                showOutput('❌ Cannot convert to JSON: ' + e.message, true);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+# GitHub Pages and docs
+docs/
+gh-pages/
+public/
+_site/
+out/
+.next/
