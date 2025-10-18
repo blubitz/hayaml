@@ -1,0 +1,65 @@
+# Build output
+dist/
+build/
+coverage/
+
+# Common bundler caches
+.parcel-cache/
+.next/
+.cache/
+
+# Optional npm cache directory
+.npm/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Test coverage
+.nyc_output/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Visual Studio Code
+.vscode/
+
+# Other editor config files you may want to ignore
+.idea/
+.sublime-project
+.sublime-workspace
+
+# Environment variables
+.env
+.env.test
+
+# Dependency directory
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Diagnostic reports (Node.js)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Output of 'npm pack'
+*.tgz
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock

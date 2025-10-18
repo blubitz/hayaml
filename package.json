@@ -1,0 +1,37 @@
+{
+  "name": "hayaml",
+  "version": "1.0.0",
+  "description": "human-readable serialization for complex web content",
+  "main": "index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/hayaml.mjs",
+      "require": "./dist/cjs/hayaml.js",
+      "default": "./dist/cjs/hayaml.js"
+    }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "npm run build && node test/test.js && node test/test.mjs",
+    "build": "npm run movecjs && npm run build:esm",
+    "build:esm": "cjstoesm src/**/*.js dist/esm && npm run renamemjs",
+    "movecjs": "node ./dev/copy.js './src/cjs/hayaml.js' './dist/cjs/hayaml.js'",
+    "renamemjs": "node ./dev/move.js ./dist/esm/hayaml.js ./dist/esm/hayaml.mjs"
+  },
+  "keywords": [
+    "hayaml",
+    "yaml",
+    "json",
+    "html"
+  ],
+  "author": "blubitz",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "cjstoesm": "^3.0.0"
+  }
+}
