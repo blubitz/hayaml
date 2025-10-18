@@ -1,6 +1,6 @@
 {
   "name": "hayaml",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "human-readable serialization for complex web content",
   "main": "index.js",
   "exports": {
