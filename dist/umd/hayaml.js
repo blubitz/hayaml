@@ -4184,6 +4184,25 @@
 		if (hasRequiredHtmlparser) return htmlparser$1.exports;
 		hasRequiredHtmlparser = 1;
 		(function (module) {
+			/*
+			 * ----------------------------------------------------------------------------
+			 * Modifications Notice
+			 * ----------------------------------------------------------------------------
+			 * The original code was licensed under the Mozilla Public License 2.0 (MPL-2.0).
+			 * 
+			 * Changes made in this version:
+			 * - Wrapped the parser in a Universal Module Definition (UMD) pattern to ensure
+			 *   compatibility with modern bundlers such as Rollup, Webpack, and Node.js.
+			 * - Replaced reliance on `this` as a global reference with an explicit `globalThis`
+			 *   fallback chain to prevent `undefined` global references in strict mode.
+			 * - Exposed the parser API (`HTMLParser`, `HTMLtoXML`, `HTMLtoDOM`) through a
+			 *   single export object (`HTMLParse`) for consistent access across environments.
+			 * 
+			 * These changes do not alter the functional behavior of the parser logic itself,
+			 * only the module wrapping and export mechanism for interoperability.
+			 */
+
+
 			(function (global, factory) {
 				{
 					module.exports = factory();
@@ -4407,7 +4426,8 @@
 			(function(global) {
 
 			  {
-			    requireHtmlparser();
+			    var t = requireHtmlparser();
+			    var HTMLParser = t.HTMLParser; // <-- this line is essential
 			  }
 
 			  function q(v) {
